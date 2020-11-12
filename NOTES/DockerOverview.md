@@ -19,3 +19,7 @@
 - Can describe containers with a shareable config file or an image which can be shared across platforms and machines
   - (does not require additional config as you would need with virtual machines)
 - Encapsulate environments, not whole machines like VMs do. (more lightweight)
+
+### Playground
+
+- For experimenting without needing to use your machine: (https://labs.play-with-docker.com/)
