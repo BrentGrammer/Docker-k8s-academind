@@ -22,6 +22,7 @@
 - Encapsulate environments, not whole machines like VMs do. (more lightweight)
 - Run containers with the `docker run` command
   - `docker stop` command to stop a container
+- Containers are a thin layer (i.e. a node process etc.) that uses the code and environment from an image (it is not a copy of the image code and files)
 
 ### Images
 
@@ -46,6 +47,12 @@
 
   COPY . /app
   ```
+
+  # Miscellaneous/Tips
+
+  - Inspect a container to get info like IP Address of the container:
+    - `docker container inspect <containerName>`
+      - See IP in `NetorkSettings.IPAddress`
 
 ### Playground
 
