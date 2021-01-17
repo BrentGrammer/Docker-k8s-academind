@@ -1,5 +1,10 @@
 # Kubernetes
 
+- Kubernetes runs and manages containers
+
+  - Kubernetes will run the container (we do not use docker or a docker-compose file)
+  - Kubernetes runs and creates the containers from images pulled from a registry
+
 - Pod: runs and executes a container or network/group of containers
   - When a pod is created, that means the container is executed (the pod runs `docker run` for the container underneath the hood)
   - Has a cluster internal IP address (this is used for communication and access within the cluster)
@@ -20,6 +25,8 @@
     - We need the service object to manage this and use it as a proxy for communicating and finding pods in a cluster
     - A service object groups pods together and gives them a shared IP address that won't change
     - The Service can expose this unchanging IP address inside the cluster or expose it to the outside world outside the cluster (**Services are required for reaching pods from the outside, i.e. the net)**
+    - the type can be `ClusterIP` which will expose the deployment/pod inside the cluster (but not the outside world)
+    - `LoadBalancer` type utilizes a load balancer(infrastructure must support one) which generates a unique address for the service and distribute traffic across all pods. This exposes the pod to the outside world.
 
 ## All of these things are Objects
 
@@ -28,6 +35,7 @@
 
 ### The Deployment Object: an object that is sent to the cluster which manages and controls pods
 
+- Manages Pods - handles crashes/restarts etc.
 - It doesn't make sense to just send Pod objects to the cluster. The whole point of k8s is to manage multiple containers (i.e. pods) and orchestrate them
 - A Deployment Object contains instructions on doing just that, so that is what is sent to the cluster as opposed to simply sending Pod objects.
   - Includes instructions on how many pods to create and control
