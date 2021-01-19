@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tasks-service
+spec:
+  selector:
+    app: tasks
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000 # only port for tasks container is exposed to outside world (auth container is listening on port 80)
+      targetPort: 8000
