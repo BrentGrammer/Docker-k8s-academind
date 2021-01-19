@@ -21,7 +21,13 @@
   - (does not require additional config as you would need with virtual machines)
 - Encapsulate environments, not whole machines like VMs do. (more lightweight)
 - Run containers with the `docker run` command
+  - **NOTE**
+    - `docker run` creates a new container each time you use it.
+      - when you run you need to expose the port of the container to access: `docker run -p 8080:8080 test` (your machine port is first then the container port)
+    - `docker start` starts an existing container
   - `docker stop` command to stop a container
+  - `docker rm` to remove a container
+  - `docker rm $(docker ps -aq)` removes all containers
 - Containers are a thin layer (i.e. a node process etc.) that uses the code and environment from an image (it is not a copy of the image code and files)
 
 ### Images

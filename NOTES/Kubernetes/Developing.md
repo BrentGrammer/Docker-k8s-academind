@@ -31,7 +31,12 @@
   - Check service with: `kubectl get services`
     - (with MiniKube the external ip will show as pending - this is expected)
     - You can map/expose a port that you can access on your machine by running:
-      - `minikube service deployment-name` (NOTE: This is only for using Minikube during development on your machine)
+      - `minikube service service-name` (NOTE: This is only for using Minikube during development on your machine)
+
+## Pulling latest Images
+
+- If you push a new image with `:latest` tag to your registry, but did not change your deployment template yaml, then you need to delete it (`kubectl delete -f deployment.yaml`) and reapply with `kubectl apply -f deployment.yaml` to get the latest image pulled
+- If you made a change to your deployment yaml then everytime you apply it, it will pull the image with the `:latest` tag from the registry as long as you specify `:latest` on your image name in the deployment.yaml file
 
 ### Scaling
 
@@ -42,6 +47,12 @@
   - Useful for maintaining access to your app if one pod crashes - traffic is redirected to a running pod instance
 
 ## Updating an image on a deployment
+
+1. Create a repo on Docker Hub or registry to push your image to.
+1. Docker Build the new image (optionally changing or updated the tag of not using the 'latest' approach): Ex for Docker Hub: `docker build -t yourname/image-name .`
+1. push the image to Docker Hub or your registry `docker push yourname/image-name`
+1. Update the deployment file to pull the latest tag if not using `latest`
+1. Apply the deployment with `kubectl apply -f deployment.yaml`
 
 - AFter making changes in source code, rebuild and push the image to docker hub or registry
   - **NOTE**: By default you need to tag the image with a new tag or k8s will not pull the image (`docker built -t brentgrammer/kub-first-app:2 .`; `docker push brentgrammer/kub-first-app:2`)
@@ -81,7 +92,7 @@ spec: # spec for deployment
       containers:
         - name: second-node # add a dash `-` for each container entry
           image: brentgrammer/kub-first-app:2
-          imagePullPolicy: Always # optional: you can make changes to your image and push it under the same tag and k8s will pull it - otherwise k8s will not pull the changed image with the same tag. Note: By default adding :latest tag to the image value here will always pull that image (with :latest tag)
+          imagePullPolicy: Always # optional: you can make changes to your image and push it under the same tag and k8s will pull it - otherwise k8s will not pull the changed image with the same tag. Note: By default adding :latest tag to the image value here will always pull that image (with :latest tag) *WHEN something changes about the deployment config*!!!
           livenessProbe: # optional, check health of the container if desired or needs to be defined in a custom way
             httpGet:
               path: / # send a health check request to this path
@@ -102,7 +113,7 @@ kind: Service
 metadata:
   name: backend
 spec:
-  selector: # indicates which other resources are connected/controlled by this resrouce- select individual pods
+  selector: # indicates which other resources are connected/controlled by this resrouce- select individual pods: only matches by label so `matchLabels` is not needed here
     app: second-app # should match the labels in your metadata for the pods- these pods will be exposed by this service
   ports:
     - protocol: "TCP"
@@ -111,8 +122,13 @@ spec:
   # - protocol: "TCP" can expose multiple ports
   #   port: 443
   #   targetPort: 443
+  # NOTE: it is not uncommon for the targetPort and port to be the same
   type: LoadBalancer # ClusterIP - interal exposing, NodePort are other options, LoadBalancer gets you an address reachable from outside and automatic traffic redistribution
 ```
+
+- `NodePort` - access a Node from the outside world - the cons are that it does not maintain steady IP addresses across Nodes. `LoadBalancer` does.
+- `LoadBalancer` is the type for exposing a pod to the outside world (the internet)
+- `ClusterIP` is for internal pod communication and will automatically load balance and redirect traffic between the pods.
 
 - now run `kubectl apply -f service.yaml`
 
