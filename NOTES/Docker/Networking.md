@@ -1,6 +1,12 @@
 # Kubernetes Networking
 
-## INTERNAL POD COMMUNICATION
+# Summary
+
+- For pods you want exposed to the outside world use a service with `LoadBalancer` type
+- For pods you only want to communicate within the cluster and not expose to outside world, use `ClusterIP` type service
+- use the **CoreDNS** feature provided by k8s to hit endpoints internal to the cluster with environment variables: value should be `service-name.default:<port>` where service name is the metadata name for the service controlling the pod you want to talk to in the cluster
+
+# INTERNAL POD COMMUNICATION
 
 - add containers to one pod (in the same deployment file inder containers block)
 
@@ -8,7 +14,7 @@
 
 - **Containers in the same Pod can access each other with `http://localhost:<container-port-exposed>` by default**
 
-## MULTIPLE POD COMMUNICATION IN A CLUSTER
+# MULTIPLE POD COMMUNICATION IN A CLUSTER
 
 - one Pod can communicate with another in the cluster via it's internal Cluser IP address
 

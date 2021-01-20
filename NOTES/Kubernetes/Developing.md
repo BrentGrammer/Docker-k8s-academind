@@ -122,7 +122,7 @@ spec:
   # - protocol: "TCP" can expose multiple ports
   #   port: 443
   #   targetPort: 443
-  # NOTE: it is not uncommon for the targetPort and port to be the same
+  # NOTE: it is not uncommon for the targetPort and port to be the same. If your container is exposing a different port then you want to put that here - traffic to the port is forwarded to targetPort
   type: LoadBalancer # ClusterIP - interal exposing, NodePort are other options, LoadBalancer gets you an address reachable from outside and automatic traffic redistribution
 ```
 
