@@ -6,7 +6,7 @@
   - Kubernetes runs and creates the containers from images pulled from a registry
 
 - Pod: runs and executes a container or network/group of containers
-  - When a pod is created, that means the container is executed (the pod runs `docker run` for the container underneath the hood)
+  - When a pod is created, that means the container is executed (the pod runs the container underneath the hood)
   - Has a cluster internal IP address (this is used for communication and access within the cluster)
   - Containers inside a Pod communicate with each other via the `localhost` domain
   - Pods are **ephemeral** - data is not persisted when a pod is destroyed and all resources in the pod are lost. Volumes is one way to persist data beyond Pod destruction or shut down
