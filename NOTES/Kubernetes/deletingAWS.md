@@ -1,3 +1,5 @@
+# How to Delete k8s Resources from AWS
+
 https://docs.aws.amazon.com/eks/latest/userguide/delete-cluster.html
 
 In such situations, you will need to manually delete the resources that are causing the "delete failure" and then try the delete command again.
