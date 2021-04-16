@@ -188,3 +188,7 @@ spec:
 
 - `kubectl get pv`
 - `kubectl get pvc`
+
+## Troubleshooting
+
+- For troubleshooting mssql persistent volumes: https://stackoverflow.com/questions/59886014/permission-denied-when-persisting-a-container-of-mcr-microsoft-com-mssql-server

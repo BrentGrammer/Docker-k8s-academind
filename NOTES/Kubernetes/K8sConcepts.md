@@ -27,6 +27,7 @@
     - The Service can expose this unchanging IP address inside the cluster or expose it to the outside world outside the cluster (**Services are required for reaching pods from the outside, i.e. the net)**
     - the type can be `ClusterIP` which will expose the deployment/pod inside the cluster (but not the outside world)
     - `LoadBalancer` type utilizes a load balancer(infrastructure must support one) which generates a unique address for the service and distribute traffic across all pods. This exposes the pod to the outside world.
+    - The `selector` in the service.yaml must match the `label` for the template in the deployment.yaml
 
 ## All of these things are Objects
 
