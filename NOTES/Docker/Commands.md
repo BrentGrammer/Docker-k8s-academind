@@ -25,3 +25,18 @@
   - ex: `docker run -it node npm init`
 - Overrides the CMD in the Dockerfile and replaces it.
   - use ENTRYPOINT in the dockerfile to just have it append to it and not replace it
+
+## prune Volumes Images Containers
+
+- docker volume prune
+- docker container prune
+- docker image prune
+
+# Docker Compose
+
+- docker-compose run --rm <service-name> <cmd>
+
+  - Runs a single service part of a docker-compose.yaml file and passes in a command (optional)
+  - Removes containers after they shut down automatically --rm
+
+- d
