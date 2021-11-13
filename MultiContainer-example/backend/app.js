@@ -83,12 +83,17 @@ app.delete("/goals/:id", async (req, res) => {
   }
 });
 
+console.log(
+  "psa",
+  `${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}`
+);
+
 mongoose.connect(
   // needed to communicate with dockerized mongo exposed port which is mapped to machine's localhost (not this container's localhost)
   // "mongodb://host.docker.internal:27017/course-goals",
 
   // If in a network, use the container name (this assumes a container named mongodb was made)
-  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}mongodb:27017/course-goals`,
+  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

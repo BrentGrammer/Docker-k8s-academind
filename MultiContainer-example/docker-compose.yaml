@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  # services are containers
+  mongodb:
+    image: "mongo"
+    # container_name: mongodb # force name of container - default is folder_service_1
+    volumes:
+      - data:/data/db # persist db files in named vol - data/db is specified in the mongo documentation
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: max
+    #   MONGO_INITDB_ROOT_SECRET: secret
+    env_file:
+      # takes list of relative paths to your files with env vars (use if you don't want to check in a env file for ex)
+      - ./env/mongo.env
+    # optionally add to this network, but docker-compose creates one automatically and adds all containers here to it.
+    # networks:
+    #   - goals-net
+  backend:
+    build: ./backend
+    ports:
+      - "80:80" # host:container
+    volumes:
+      - logs:/app/logs # remember to add named vols to volumes block below
+      - ./backend:/app # bind mount
+      - /app/node_modules # anonymous vol for node modules, used in combo with .dockerignore
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb # backend needs mongo container up first to connect to it
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true # set open input connection (-i of -it flag for attaching terminal to input)
+    tty: true # in addition this is the -it flag needed to keep react container running so dev server does not shut down
+    depends_on:
+      - backend
+
+# !!! only for named volumes you need to add a volumes key with the name followed by a colon:
+volumes:
+  data:
+  logs:
