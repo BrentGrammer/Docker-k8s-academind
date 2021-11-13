@@ -6,8 +6,16 @@ services:
       - "8000:80" # docs state that 80 is exposed by the container
     volumes: # we bind our conf to the container so we can write it on our hostmachine
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # docs tell you to put your conf in this dir on the container. set to readonly with ro since our config should not change from inside the container
-  # php:
-  # mysql:
+  php:
+    # we need a keyed config for build since we're specifying a dockerfile nested in our folder structure and of a different name
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      # create bind mount to work on src code on our machine and have it update on the container
+      - ./src:/var/www/html:delegated # delegated means if container writes to this location, writes are batched which makes for better performance - use when container should not write frequently or instant update is not required
+    # We
+    # mysql:
   # # utility containers
   # composer:
   # artisan:
