@@ -23,3 +23,5 @@
 
 - docker run <containerimage> <cmd>
   - ex: `docker run -it node npm init`
+- Overrides the CMD in the Dockerfile and replaces it.
+  - use ENTRYPOINT in the dockerfile to just have it append to it and not replace it
