@@ -1,5 +1,7 @@
 node_modules
 **/*.log
+*.pem
+.DS_Store
 
 # laravel project:
 complex-laravel-example/**/*/node_modules
