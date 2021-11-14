@@ -16,8 +16,15 @@
   - Runs just the composer utility container to create a project with the compose command in the www/html folder that is bind mounted to our src folder on host machine in the php container config
 
 - Set .env with values from your env files (i.e. mysql.env)
+  - **Do not use 127.0.0.1 for the DB_HOST! We just use `mysql` the name of the database service which docker translates to an IP of the container the mysql database is running, not our localhost.**
 
-## Troubleshooting on Linux:
+# Start the app:
+
+- Start the app services by running docker-compose in targeted mode (excludes the utility containers we don't need for the app to run)
+  - `docker-compose up -d server php mysql`
+- Visit localhost:8000 to see the app in the browser
+
+# Troubleshooting on Linux:
 
 - Permission errors on Linux: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/learn/lecture/23172898#notes
 - also: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/learn/#questions/12986850/

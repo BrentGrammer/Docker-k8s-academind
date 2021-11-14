@@ -5,7 +5,8 @@ services:
     ports:
       - "8000:80" # docs state that 80 is exposed by the container
     volumes: # we bind our conf to the container so we can write it on our hostmachine
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # docs tell you to put your conf in this dir on the container. set to readonly with ro since our config should not change from inside the container
+      - ./src:/var/www/html # nginx needs to be aware of our php src files in public folder. This ensures our updated content in public is available to that server when it is updated by the php interpreter service as we develop.
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro # docs tell you to put your conf in this dir on the container. set to readonly with ro since our config should not change from inside the container.  The default.conf is merged with a larger conf file in the container automatically - it is where our config
   php:
     # we need a keyed config for build since we're specifying a dockerfile nested in our folder structure and of a different name
     build:
