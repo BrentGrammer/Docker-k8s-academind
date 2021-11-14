@@ -21,6 +21,7 @@
 
 - Best to build image outside of remote machine and just run it on the remote.
   - Build your image and push it to a registry like Dockerhub
+    - remember to rename it with `docker tag <originalimagename> <dockeruser/reponame>` so you can push it to dockerhub if you want (`docker push dockeruser/reponame`).
   - Pull the image from the registry and run it on the remote machine
 - Make sure you have a dockerignore file to prevent copying or using your secrets like a .pem file for aws or node_modules
   - ```
@@ -28,3 +29,12 @@
     Dockerfile
     *.pem
     ```
+
+## Updating your code on the remote machine
+
+- Build the new image on local machine
+- rename/tag it to match your repo (i.e. dockerhub repo) with `docker tag`
+- Push the image to your remote image repo with `docker push ...`
+- Pull the latest version of the image on the remote machine with `docker pull <imagetag>`
+- Shut down the container running the old image
+- Start the container using the latest pulled image with `docker run ...`
