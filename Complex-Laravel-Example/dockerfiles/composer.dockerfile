@@ -6,3 +6,6 @@ FROM composer:latest
 WORKDIR /var/www/html
 # we use the official image but here we can now use an ENTRYPOINT for utility purposes
 ENTRYPOINT [ "composer", "--ignore-platform-reqs" ]
+
+# You can now create a laravel project using this utility container by running it specifically with:
+# docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^7.0 .

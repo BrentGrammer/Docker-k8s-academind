@@ -1,2 +1,16 @@
 node_modules
 **/*.log
+
+# laravel project:
+Complex-Laravel-Example/**/*/node_modules
+Complex-Laravel-Example/**/*/public/hot
+Complex-Laravel-Example/**/*/public/storage
+Complex-Laravel-Example/**/*/storage/*.key
+Complex-Laravel-Example/**/*/vendor
+**/*/.env
+**/*/.env.backup
+**/*/.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
