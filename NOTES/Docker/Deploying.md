@@ -1,12 +1,5 @@
 # Deploying to Production
 
-- Can use your own data center (need to know how to configure everything)
-- Use a managed Service
+## Note on Bind Mounts for developing:
 
-  - [kops](https://github.com/kubernetes/kops) is a tool used to install k8s software needed (ssh into your virtual machine instance)
-  - Managed Services also offer full auto configuration for you to use k8s (example: AWS EKS)
-
-  # Using AWS EKS
-
-  - AWS Elastic Kubernetes Service
-    - different from AWS ECS (Elastic Container Service) is general for deployments not specific to k8s
+- We need to copy files that are needed in the container for deployment and not just set a bindmount which is good for development. We should copy a snapshot of the files in a dockerfile config so they are available in the container for deployment.

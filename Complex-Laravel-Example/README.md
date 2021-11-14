@@ -21,8 +21,14 @@
 # Start the app:
 
 - Start the app services by running docker-compose in targeted mode (excludes the utility containers we don't need for the app to run)
-  - `docker-compose up -d server php mysql`
+  - `docker-compose up -d --build server`
+  - the server has a depends_on block in the docker-compose for php and mysql services which are started automatically if not running when server is started with that
 - Visit localhost:8000 to see the app in the browser
+
+## Utility Containers
+
+- We can use the npm and artisan utility containers setup in the docker-compose by using the docker run commands when the php/server/mysql services are running:
+  - `docker-compose run --rm artisan migrate` runs the php artisan migrate command for example
 
 # Troubleshooting on Linux:
 

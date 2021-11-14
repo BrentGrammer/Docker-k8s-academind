@@ -32,10 +32,15 @@
 - docker container prune
 - docker image prune
 
+## Shell into a container:
+
+- docker exec -it <container name> sh
+
 # Docker Compose
 
 - docker-compose run --rm <service-name> <cmd>
 
+  - **docker-sompose run will build the container if it does not exist (unlike docker run command which requires a docker build first)**
   - Runs a single service part of a docker-compose.yaml file and passes in a command (optional)
   - Removes containers after they shut down automatically --rm
 

@@ -7,6 +7,10 @@ services:
     volumes: # we bind our conf to the container so we can write it on our hostmachine
       - ./src:/var/www/html # nginx needs to be aware of our php src files in public folder. This ensures our updated content in public is available to that server when it is updated by the php interpreter service as we develop.
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro # docs tell you to put your conf in this dir on the container. set to readonly with ro since our config should not change from inside the container.  The default.conf is merged with a larger conf file in the container automatically - it is where our config
+    depends_on:
+      # This allows our docker-compose command to be shorter by automatically bringing up depends on services if server is started so we don't have to specify all three in the command
+      - php
+      - mysql
   php:
     # we need a keyed config for build since we're specifying a dockerfile nested in our folder structure and of a different name
     build:
@@ -28,5 +32,16 @@ services:
       dockerfile: composer.dockerfile
     volumes:
       - ./src:/var/www/html # if we use composer to create a laravel app it will be mirrored back to our src folder on our machine, which is also bound to the html path on the php container
-  #artisan:
-  # npm:
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile # same things as php service needs so just reuse the dockerfile
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ["php", "artisan"] # override or add an ENTRYPOINT in the dockerfile, here we start the artisan tool
+  npm:
+    image: node:14
+    working_dir: /var/www/html # overwrites WORKDIR in dockerfile from official image
+    entrypoint: ["npm"] # a npm utility container
+    volumes:
+      - ./src:/var/www/html # bind updates since we want the npm command run in the container to also effect files on our machine src code.
