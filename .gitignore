@@ -2,11 +2,11 @@ node_modules
 **/*.log
 
 # laravel project:
-Complex-Laravel-Example/**/*/node_modules
-Complex-Laravel-Example/**/*/public/hot
-Complex-Laravel-Example/**/*/public/storage
-Complex-Laravel-Example/**/*/storage/*.key
-Complex-Laravel-Example/**/*/vendor
+complex-laravel-example/**/*/node_modules
+complex-laravel-example/**/*/public/hot
+complex-laravel-example/**/*/public/storage
+complex-laravel-example/**/*/storage/*.key
+complex-laravel-example/**/*/vendor
 **/*/.env
 **/*/.env.backup
 **/*/.phpunit.result.cache

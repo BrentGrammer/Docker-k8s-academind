@@ -11,8 +11,11 @@
 
 ## Creating a Laravel Project using the utility container:
 
-- From the Complex-Laravel-Example folder, run: `docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^7.0 .`
+- From the complex-laravel-example folder, run: `docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^7.0 .`
+
   - Runs just the composer utility container to create a project with the compose command in the www/html folder that is bind mounted to our src folder on host machine in the php container config
+
+- Set .env with values from your env files (i.e. mysql.env)
 
 ## Troubleshooting on Linux:
 
