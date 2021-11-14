@@ -1,7 +1,10 @@
 version: "3.8"
 services:
   server:
-    image: "nginx:stable-alpine" # official image
+    # we use our dockerfile that copies a snapshot of bind mounted files on build which is useful for deployment
+    build:
+      context: . # !! the dockerfile references files outside of the dockerfiles folder, so the context needs to be set so those paths are accessible to the dockerfile
+      dockerfile: dockerfiles/nginx.dockerfile
     ports:
       - "8000:80" # docs state that 80 is exposed by the container
     volumes: # we bind our conf to the container so we can write it on our hostmachine
@@ -14,8 +17,8 @@ services:
   php:
     # we need a keyed config for build since we're specifying a dockerfile nested in our folder structure and of a different name
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
     volumes:
       # create bind mount to work on src code on our machine and have it update on the container
       - ./src:/var/www/html:delegated # delegated means if container writes to this location, writes are batched which makes for better performance - use when container should not write frequently or instant update is not required
@@ -34,8 +37,8 @@ services:
       - ./src:/var/www/html # if we use composer to create a laravel app it will be mirrored back to our src folder on our machine, which is also bound to the html path on the php container
   artisan:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile # same things as php service needs so just reuse the dockerfile
+      context: . # since we re-use the php dockerfile with copy commands we need to set the context as the same
+      dockerfile: dockerfiles/php.dockerfile # same things as php service needs so just reuse the dockerfile
     volumes:
       - ./src:/var/www/html
     entrypoint: ["php", "artisan"] # override or add an ENTRYPOINT in the dockerfile, here we start the artisan tool

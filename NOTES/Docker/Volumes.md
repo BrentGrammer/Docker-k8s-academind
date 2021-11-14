@@ -84,6 +84,10 @@ If you start a container without that option, the anonymous volume would NOT be 
 - Bind mounts are perfect for persistent and editable data
 - **NOTE**: Unlike Volumes, Docker will NOT overwrite the folders/files on your local host machine when changes are made in the container files. It is one way - files in the container are overwritten/modified if changes in the Bind Mount folder (your machine) are changed.
 
+## Note on Deployment
+
+- The bind mount is useful for development, but the container needs the latest copies of the files when it's being built for deployment. A dockerfile should be used to copy a snapshot of the files to the container so it has the latest versions on building in addition to having a bind mount for development. (the source folders in the bind mount will not exist on the deployed environment for example)
+
 ## Adding a Bind Mount
 
 - Use the `-v` flag and set a **absolute** path to the folder on your machine to the container path to map to.

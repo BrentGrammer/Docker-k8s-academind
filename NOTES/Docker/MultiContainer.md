@@ -27,3 +27,7 @@
 - For react create a bind mount:
   - `-v /my/reactapp/src:/app/src`
   - Note on WSL 2 on windows: Need to create project files in linux system, not windows. See pdf in this project.
+
+## Note on Bind Mounts for developing vs. Deployment:
+
+- We need to copy files that are needed in the container for deployment and not just set a bindmount which is good for development. We should copy a snapshot of the files in a dockerfile config so they are available in the container for deployment.

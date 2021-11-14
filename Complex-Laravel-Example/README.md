@@ -15,7 +15,7 @@
 
   - Runs just the composer utility container to create a project with the compose command in the www/html folder that is bind mounted to our src folder on host machine in the php container config
 
-- Set .env with values from your env files (i.e. mysql.env)
+- Set .env in `src/.env` after generating the laravel project with values from your dependency env files (i.e. mysql.env)
   - **Do not use 127.0.0.1 for the DB_HOST! We just use `mysql` the name of the database service which docker translates to an IP of the container the mysql database is running, not our localhost.**
 
 # Start the app:
