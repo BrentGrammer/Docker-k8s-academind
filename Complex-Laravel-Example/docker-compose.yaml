@@ -14,8 +14,12 @@ services:
     volumes:
       # create bind mount to work on src code on our machine and have it update on the container
       - ./src:/var/www/html:delegated # delegated means if container writes to this location, writes are batched which makes for better performance - use when container should not write frequently or instant update is not required
-    # We
-    # mysql:
+  mysql:
+    image: mysql:5.7 # official image
+    # provide env variables used by images to setup user pw and database from docs
+    env_file:
+      - ./env/mysql.env
+
   # # utility containers
   # composer:
   # artisan:
