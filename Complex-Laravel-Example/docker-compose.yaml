@@ -20,7 +20,12 @@ services:
     env_file:
       - ./env/mysql.env
 
-  # # utility containers
-  # composer:
-  # artisan:
+  # utility containers - used by us and the other services
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html # if we use composer to create a laravel app it will be mirrored back to our src folder on our machine, which is also bound to the html path on the php container
+  #artisan:
   # npm:
