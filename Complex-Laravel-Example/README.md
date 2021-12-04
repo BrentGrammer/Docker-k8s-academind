@@ -14,6 +14,7 @@
 - From the complex-laravel-example folder, run: `docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^7.0 .`
 
   - Runs just the composer utility container to create a project with the compose command in the www/html folder that is bind mounted to our src folder on host machine in the php container config
+  - If Errors like 500 are seen, change the version of laravel above. see q and a in course.
 
 - Set .env in `src/.env` after generating the laravel project with values from your dependency env files (i.e. mysql.env)
   - **Do not use 127.0.0.1 for the DB_HOST! We just use `mysql` the name of the database service which docker translates to an IP of the container the mysql database is running, not our localhost.**
