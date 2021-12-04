@@ -35,3 +35,4 @@
 
 - Permission errors on Linux: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/learn/lecture/23172898#notes
 - also: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/learn/#questions/12986850/
+- If Errors like 500 are seen, change the version of laravel in the creating a laravel project section command.
